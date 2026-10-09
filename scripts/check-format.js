@@ -1,6 +1,10 @@
 import { readFileSync } from 'node:fs';
 
-const files = ['src/cart.js', 'test/cart.test.js'];
+const files = [
+    'src/cart.js',
+    'test/cart.test.js',
+    'test/cart-rules.test.js'
+  ];
 let failed = false;
 
 for (const file of files) {
