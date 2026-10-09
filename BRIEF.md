@@ -1,91 +1,88 @@
-# Implementation Brief
+# Implementation Brief: `cartTotal`
 
-## Goal
+## Goal and allowed files
 
-Implement cartTotal(items, options) in src/cart.js.
+Implement and export `cartTotal(items, options)` from `src/cart.js`.
 
-## Original allowed files
+The original implementation brief allowed changes only to:
 
-- src/cart.js
-- test/cart.test.js
+- `src/cart.js` for production code.
+- `test/cart.test.js` for contract tests.
 
-## Inputs
+Do not add dependencies or create alternative implementations.
 
-- items: an array of products with name, price, and qty.
-- options: an object with vatRate, freeShipFrom, and shipFee.
+## Contract
 
-## Behaviour
-
-- Calculate subtotal as the sum of price * qty.
-- Calculate VAT as subtotal * vatRate.
-- Use the subtotal before VAT to determine free shipping.
-- Shipping is 0 when subtotal >= freeShipFrom.
-- Otherwise, shipping is options.shipFee.
-- An empty cart returns 0, without VAT or shipping.
-- Calculate the total as subtotal + VAT + shipping.
-- Round only the final total to the nearest whole dong.
-- Return the result as a number.
-
-## Errors
-
-Throw RangeError when:
-- price is negative.
-- qty is not a positive integer, including zero,
-  negative values, and fractional values.
+- `items` is an array of objects shaped like `{ name, price, qty }`.
+- `options` is shaped like `{ vatRate, freeShipFrom, shipFee }`.
+- Compute the subtotal as the sum of `price * qty` for all items.
+- Compute VAT as `subtotal * vatRate`.
+- Determine shipping from the subtotal before VAT: shipping is `0` when
+  `subtotal >= freeShipFrom`; otherwise use `shipFee`.
+- Return `subtotal + VAT + shipping`, rounding only the final total to
+  the nearest whole dong.
+- Return a JavaScript number, not a formatted string.
+- Return `0` for an empty cart, without VAT or shipping.
+- Throw `RangeError` when any item's `price` is negative.
+- Throw `RangeError` when any item's `qty` is not a positive integer,
+  including zero, negative, and fractional values.
 
 ## Worked example
 
-Items:
-- name: "Áo thun", price: 180000, qty: 2
-- name: "Sổ tay", price: 45000, qty: 1
+```js
+cartTotal(
+  [
+    { name: 'Áo thun', price: 180000, qty: 2 },
+    { name: 'Sổ tay', price: 45000, qty: 1 }
+  ],
+  { vatRate: 0.08, freeShipFrom: 500000, shipFee: 30000 }
+);
+```
 
-Options:
-- vatRate: 0.08
-- freeShipFrom: 500000
-- shipFee: 30000
+Subtotal is `405000`, VAT is `32400`, and shipping is `30000` because
+the subtotal is below `500000`. The expected result is `467400` as a number.
 
-Calculation:
-- Subtotal: 180000 * 2 + 45000 * 1 = 405000.
-- VAT: 405000 * 0.08 = 32400.
-- Shipping: 30000 because 405000 < 500000.
-- Total: 405000 + 32400 + 30000 = 467400.
+## Tests
 
-Expected result: 467400 as a number.
+Use `node:test` and `node:assert/strict`. Keep focused tests for:
 
-## Constraints
-
-- Use plain JavaScript and ES modules.
-- Do not add external dependencies.
-- Keep the function signature cartTotal(items, options).
-- Use node:test and node:assert/strict.
-- Do not weaken existing tests to make them pass.
-
-## Verification
-
-Tests must cover:
 - The worked example.
 - An empty cart.
-- Subtotal exactly at the free-shipping threshold.
-- Subtotal below and above the threshold.
+- Subtotal below, exactly at, and above the free-shipping threshold.
 - Negative price.
-- Zero, negative, and fractional quantity.
-- Rounding and number return type.
+- Zero, negative, and fractional quantities.
+- Whole-dong rounding and numeric return type.
 
-Run npm run validate after implementation.
+Use expected results calculated from the contract. Do not weaken tests to
+make an incorrect implementation pass.
 
-## Clarification added after implementation
+## Constraints and gates
 
-The original allowed-file list included only src/cart.js
-and test/cart.test.js.
+- Use plain JavaScript and ES modules, with no external dependencies.
+- Keep the public function signature `cartTotal(items, options)`.
+- Round only the final total; do not use `toFixed()` for the return value.
+- Read each diff before accepting a change.
+- Run `npm run validate`: syntax checks, basic formatting checks, then tests.
+- Check the hosted GitHub Actions result after pushing; a successful local
+  run alone is not evidence that hosted CI passed.
 
-During implementation, the additional tests were placed
-in test/cart-rules.test.js, while the original example test
-was kept in test/cart.test.js.
+## Scope clarification recorded after implementation
 
-The additional test file was not listed in the original brief.
-This section records the actual scope used; it does not
-claim that the file was included before implementation.
+The additional tests were placed in `test/cart-rules.test.js`, while the
+original worked-example test remained in `test/cart.test.js`. The additional
+file was not listed in the original allowed scope. This note records that
+deviation honestly; it does not claim prior approval.
 
-This revision also makes the existing calculation rules
-explicit: shipping eligibility uses the subtotal before VAT,
-and only the final total is rounded.
+The recorded test layout is therefore:
+
+- `test/cart.test.js`: the original worked-example test.
+- `test/cart-rules.test.js`: ten additional contract tests.
+
+For subsequent test maintenance, use this recorded layout. Harness and
+documentation changes should be identified separately from production-code
+changes, and any further scope changes should be recorded before editing.
+
+This revised document was organised after implementation. It also makes
+explicit the existing rules about using subtotal before VAT for shipping
+and rounding only the final total. It is not an unchanged copy of the
+original pre-implementation brief.
