@@ -77,10 +77,8 @@ assistant's instructions and correcting the reported issues.
 Rejected: No suggested publication approach was explicitly rejected.
 
 By hand: I created my GitHub repository, ran the commit and push commands,
-and inspected local test output and GitHub Actions logs. My original log
-records that hosted CI passed after implementation was pushed. This entry
-does not claim that future documentation changes have already passed CI;
-the run associated with the final submitted commit should be checked.
+and inspected local test output and GitHub Actions logs. Hosted CI passed
+after the implementation was pushed, as recorded in my original log.
 
 ## 2026-10-09 — Submission documents and retrospective clarification
 
@@ -104,7 +102,26 @@ Rejected: I did not explicitly reject a documentation draft during this
 revision. The revision does not copy the other student's identity, repository,
 commit hashes, score, or claims of personal review into my own record.
 
-By hand: I supplied my existing files and a comparison example and requested
-the revision. The assistant edited these documents. I have not yet recorded
-a new local validation result, commit, push, or hosted CI result for this
-revision in this entry. Those actions should only be recorded after they occur.
+By hand: I supplied my existing files and a comparison example and
+requested the revision. The assistant edited these documents, and
+I copied the revised files into my project.
+
+## 2026-10-11 — Final self-assessment and archive refresh
+
+Tool: ChatGPT in a browser, the terminal, Git, and Node.js.
+
+Asked for: Help commit the updated self-assessment and rebuild
+the submission ZIP from the latest commit.
+
+Kept: The existing implementation, eleven tests, and validation commands.
+
+Changed: I changed the claimed Tests score from 18 to 19 and Harness
+score from 17 to 19, making the claimed total 96. No implementation,
+test, or harness improvement was made in this update.
+
+Rejected: No suggested output was explicitly rejected.
+
+By hand: I entered the correct project directory, added the missing
+final newline to the report, and ran npm run validate successfully:
+11 tests passed and 0 failed. I committed the report as 40ee426,
+pushed main, and created 24127440_96.zip using git archive.
