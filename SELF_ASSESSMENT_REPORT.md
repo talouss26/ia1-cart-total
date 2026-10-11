@@ -3,18 +3,18 @@
 Student ID: 24127440
 Full Name: Tô Thành Lộc
 Repository: https://github.com/talouss26/ia1-cart-total
-Claimed total: 93/100
+Claimed total: 96/100
 
 ## Score summary
 
 | Criterion | Maximum | Claimed | Evidence |
 |---|---:|---:|---|
 | Behaviour | 30 | 30 | src/cart.js; 11 passing tests |
-| Tests | 20 | 18 | test/cart.test.js; test/cart-rules.test.js |
-| Harness | 20 | 17 | AGENTS.md; package.json; scripts/check-format.js; .github/workflows/ci.yml; successful CI run |
+| Tests | 20 | 19 | test/cart.test.js; test/cart-rules.test.js |
+| Harness | 20 | 19 | AGENTS.md; package.json; scripts/check-format.js; .github/workflows/ci.yml; successful CI run |
 | Brief | 15 | 14 | BRIEF.md; commit 9f2a3f9 |
 | AI-LOG | 15 | 14 | AI-LOG.md |
-| Total | 100 | 93 | Sum of the five claimed scores |
+| Total | 100 | 96 | Sum of the five claimed scores |
 
 ## Detailed assessment
 
@@ -40,7 +40,7 @@ The function throws RangeError when:
 The final total is rounded using Math.round and returned
 as a number. The worked example returns 467400.
 
-### 2. Tests: 18/20
+### 2. Tests: 19/20
 
 Evidence:
 - test/cart.test.js
@@ -70,7 +70,7 @@ Missing coverage:
 The existing rounding test checks that 109.08 becomes 109,
 so it does not distinguish Math.round from Math.floor.
 
-### 3. Harness: 17/20
+### 3. Harness: 19/20
 
 Evidence:
 - AGENTS.md
@@ -188,4 +188,4 @@ implementation or additional tests.
 
 ## Total
 
-30 + 18 + 17 + 14 + 14 = 93/100
+30 + 19 + 19 + 14 + 14 = 96/100
